@@ -15,14 +15,14 @@ var LEGEND_HEIGHT = 16;
 var barHeight = 150;
 var myColor = 'rgba(255, 0, 0, 1)';
 
-//рисуем облако для статистики
-var renderCloud = function(ctx, x, y, color) {
+// рисуем облако для статистики
+var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
   ctx.fillRect(x, y, CLOUD_WIDTH, CLOUD_HEIGHT);
 };
 
-//находим максимальный элемент массива
-var getMaxElement = function(arr) {
+// находим максимальный элемент массива
+var getMaxElement = function (arr) {
   var maxElement = arr[0];
 
   for (var i = 0; i < arr.length; i++) {
@@ -34,12 +34,12 @@ var getMaxElement = function(arr) {
   return maxElement;
 };
 
-//рисуем статистику
-window.renderStatistics = function(ctx, players, times) {
+// рисуем статистику
+window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + GAP, CLOUD_Y + GAP, 'rgba(0, 0, 0, 0.7)');
   renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
 
-  //настройки шрифта
+  // настройки шрифта
   ctx.font = '16px, PT Mono';
   ctx.textBaseline = 'hanging';
   ctx.fillStyle = '#000';
@@ -49,18 +49,18 @@ window.renderStatistics = function(ctx, players, times) {
 
   var maxTime = getMaxElement(times);
 
-  for(var i = 0; i < players.length; i++) {
-    ctx.fillStyle = "#000";
-    ctx.fillText(players[i], GRAPH_X + (BAR_WIDTH + BAR_GUTTER) * i , GRAPH_Y);
+  for (var i = 0; i < players.length; i++) {
+    ctx.fillStyle = '#000';
+    ctx.fillText(players[i], GRAPH_X + (BAR_WIDTH + BAR_GUTTER) * i, GRAPH_Y);
     ctx.fillText(Math.round(times[i]), GRAPH_X + (BAR_WIDTH + BAR_GUTTER) * i, GRAPH_Y - LEGEND_HEIGHT - FONT_GAP - ((barHeight * times[i]) / maxTime));
 
-    //Выделяем красным столбец пользователя
+    // Выделяем красным столбец пользователя
     if (players[i] === 'Вы') {
       ctx.fillStyle = myColor;
     } else {
       var saturation = Math.random().toFixed(2);
-      ctx.fillStyle = 'hsl(231, 79%, 39%, ' + saturation +')';
-    };
-    ctx.fillRect(GRAPH_X + (BAR_WIDTH + BAR_GUTTER) * i, GRAPH_Y - LEGEND_HEIGHT, BAR_WIDTH, - ((barHeight * times[i]) / maxTime));
-  };
+      ctx.fillStyle = 'hsl(231, 79%, 39%, ' + saturation + ')';
+    }
+    ctx.fillRect(GRAPH_X + (BAR_WIDTH + BAR_GUTTER) * i, GRAPH_Y - LEGEND_HEIGHT, BAR_WIDTH, -((barHeight * times[i]) / maxTime));
+  }
 };

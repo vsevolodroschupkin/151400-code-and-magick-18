@@ -9,6 +9,11 @@
       var randomEl = arr[Math.floor(Math.random() * (arr.length))];
       return randomEl;
     },
+    // выбирает случайное число из диапазона
+    getRandomInteger: function (min, max) {
+      var rand = min - 0.5 + Math.random() * (max - min + 1);
+      return Math.round(rand);
+    },
     // меняет передаваемое значение стилей
     changeValue: function (array, element, input, rule) {
       var randomValue = window.util.getRandomItem(array);
